@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+    }
+  </style>
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center">
+
+  <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+    <h2 class="text-center mb-4">Banking System</h2>
+
+    <div class="mb-3">
+      <label class="form-label">Contract Balance:</label>
+      <input type="text" class="form-control" value="0.0" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Your Address:</label>
+      <input type="text" class="form-control" value="0x210eB2Ef9d54807b62d4966d7E501a8B4287884d" readonly>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Your Balance (ETH):</label>
+      <div class="input-group">
+        <input type="text" class="form-control" value="100.0" readonly>
+        <span class="input-group-text">ETH</span>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Deposit Amount (ETH):</label>
+      <div class="input-group">
+        <input type="number" class="form-control" placeholder="Enter Amount">
+        <button class="btn btn-primary">Deposit</button>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Withdraw Amount (ETH):</label>
+      <div class="input-group">
+        <input type="number" class="form-control" placeholder="Enter Amount">
+        <button class="btn btn-danger">Withdraw</button>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Transfer To Address:</label>
+      <input type="text" class="form-control" placeholder="Enter Address">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Transfer Amount (ETH):</label>
+      <div class="input-group">
+        <input type="number" class="form-control" placeholder="Enter Amount">
+        <button class="btn btn-primary">Transfer</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
