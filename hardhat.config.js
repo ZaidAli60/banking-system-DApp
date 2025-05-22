@@ -8,7 +8,7 @@ module.exports = {
       url: "http://127.0.0.1:8545", // Default RPC URL for Ganache
       // chainId: 1337,               // Default Chain ID for Ganache
       accounts: [
-        "0x56e69b31289c2b1e21035dc9e196ef0edc864e8b8cc3bc050bc1a06cf003a049",
+        "0xd46f9d208c9868e182b1326ba1dc3f58d92821fca47548a1cac09d5ba5de9ccb",
         // Add more private keys if needed
       ]
     },
