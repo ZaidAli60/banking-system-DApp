@@ -164,6 +164,70 @@ async function getContractBalance() {
     document.querySelectorAll("input")[0].value = ethBalance;
 }
 
+
+async function transferEth() {
+    const toAddress = document.getElementById("transferTo").value;
+    const amountEth = document.getElementById("transferAmount").value;
+
+    if (!web3.utils.isAddress(toAddress)) {
+        alert("Invalid address!");
+        return;
+    }
+
+    if (!amountEth || parseFloat(amountEth) <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+    const accounts = await web3.eth.getAccounts();
+    const fromAccount = accounts[0];
+
+    try {
+        await web3.eth.sendTransaction({
+            from: fromAccount,
+            to: toAddress,
+            value: web3.utils.toWei(amountEth, 'ether')
+        });
+
+        alert("Transfer successful!");
+        document.getElementById("transferTo").value = "";
+        document.getElementById("transferAmount").value= "";
+        // Optional: Refresh balances
+        await getContractBalance();
+        // await updateUserBalance(); // If you have a function like this
+    } catch (error) {
+        console.error("Transfer failed:", error);
+        alert("Transfer failed. See console for details.");
+    }
+}
+
+async function withdrawEth() {
+    const amountEth = document.getElementById("withdrawAmount").value;
+  
+    if (!amountEth || parseFloat(amountEth) <= 0) {
+      alert("Please enter a valid amount.");
+      return;
+    }
+  
+    const accounts = await web3.eth.getAccounts();
+    const fromAccount = accounts[0];
+  
+    try {
+      await bankContract.methods.withdraw(web3.utils.toWei(amountEth, 'ether')).send({
+        from: fromAccount
+      });
+  
+      alert("Withdrawal successful!");
+      document.getElementById("withdrawAmount").value = ""; 
+      await getContractBalance();
+    //   await getUserBalance(); // Optional: Refresh user's balance
+    } catch (error) {
+      console.error("Withdrawal failed:", error);
+      alert("Withdrawal failed. Check console for details.");
+    }
+  }
+  
+
 window.onload = async () => {
     await getContractBalance();
     // await getUserBalance();
