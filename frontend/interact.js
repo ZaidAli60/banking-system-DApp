@@ -191,7 +191,7 @@ async function transferEth() {
 
         alert("Transfer successful!");
         document.getElementById("transferTo").value = "";
-        document.getElementById("transferAmount").value= "";
+        document.getElementById("transferAmount").value = "";
         // Optional: Refresh balances
         await getContractBalance();
         // await updateUserBalance(); // If you have a function like this
@@ -203,32 +203,85 @@ async function transferEth() {
 
 async function withdrawEth() {
     const amountEth = document.getElementById("withdrawAmount").value;
-  
+
     if (!amountEth || parseFloat(amountEth) <= 0) {
-      alert("Please enter a valid amount.");
-      return;
+        alert("Please enter a valid amount.");
+        return;
     }
-  
+
     const accounts = await web3.eth.getAccounts();
     const fromAccount = accounts[0];
-  
+
     try {
-      await bankContract.methods.withdraw(web3.utils.toWei(amountEth, 'ether')).send({
-        from: fromAccount
-      });
-  
-      alert("Withdrawal successful!");
-      document.getElementById("withdrawAmount").value = ""; 
-      await getContractBalance();
-    //   await getUserBalance(); // Optional: Refresh user's balance
+        await bankContract.methods.withdraw(web3.utils.toWei(amountEth, 'ether')).send({
+            from: fromAccount
+        });
+
+        alert("Withdrawal successful!");
+        document.getElementById("withdrawAmount").value = "";
+        await getContractBalance();
+        //   await getUserBalance(); // Optional: Refresh user's balance
     } catch (error) {
-      console.error("Withdrawal failed:", error);
-      alert("Withdrawal failed. Check console for details.");
+        console.error("Withdrawal failed:", error);
+        alert("Withdrawal failed. Check console for details.");
     }
-  }
-  
+}
+
+async function getAllTransactions(account) {
+    const latestBlock = await web3.eth.getBlockNumber();
+    const transactions = [];
+
+    for (let i = 0; i <= latestBlock; i++) {
+        const block = await web3.eth.getBlock(i, true);
+        if (block && block.transactions) {
+            block.transactions.forEach(tx => {
+                if (tx.from === account || tx.to === account) {
+                    transactions.push({
+                        hash: tx.hash,
+                        from: tx.from,
+                        to: tx.to,
+                        value: web3.utils.fromWei(tx.value, 'ether'),
+                        blockNumber: tx.blockNumber
+                    });
+                }
+            });
+        }
+    }
+
+    return transactions;
+}
+
+
+async function showTransactions() {
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+    const txs = await getAllTransactions(account);
+
+    const tbody = document.querySelector("#txTable tbody");
+    tbody.innerHTML = ""; // clear old rows
+
+    txs.forEach((tx, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${tx.hash.slice(0, 10)}...</td>
+        <td>${tx.from}</td>
+        <td>${tx.to}</td>
+        <td>${tx.value}</td>
+        <td>${tx.blockNumber}</td>
+      `;
+        tbody.appendChild(row);
+    });
+}
 
 window.onload = async () => {
     await getContractBalance();
-    // await getUserBalance();
+    await showTransactions();
 };
+
+
+
+// window.onload = async () => {
+//     await getContractBalance();
+//     // await getUserBalance();
+// };

@@ -14,64 +14,91 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 </head>
 
-<body class="bg-light d-flex justify-content-center align-items-center">
 
-    <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
-        <h2 class="text-center mb-4">Banking System DApp</h2>
+<body class="bg-light">
 
-        <div class="mb-3">
-            <label class="form-label">Contract Balance:</label>
-            <input type="text" class="form-control" id="contractBalance" value="0.0" readonly>
-        </div>
+    <div class="py-5 d-flex justify-content-center align-items-center">
 
-        <div class="mb-3">
-            <label class="form-label">Contract Address:</label>
-            <input type="text" class="form-control" id="contractAddress" value=""
-                readonly>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Your Address:</label>
-            <input type="text" class="form-control" id="yourAddress" value="0x0940BB9a9EEBF58721fCE3fC36339615B1a7A601"
-                readonly>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Your Balance (ETH):</label>
-            <div class="input-group">
-                <input type="text" class="form-control" id="currentBalance" value="" readonly>
-                <span class="input-group-text">ETH</span>
+        <div class="card shadow p-4" style="max-width: 500px; width: 100%;">
+            <h2 class="text-center mb-4">Banking System DApp</h2>
+
+            <div class="mb-3">
+                <label class="form-label">Contract Balance:</label>
+                <input type="text" class="form-control" id="contractBalance" value="0.0" readonly>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Deposit Amount (ETH):</label>
-            <div class="input-group">
-                <input type="number" class="form-control" id="depositAmount" placeholder="Enter Amount">
-                <button class="btn btn-primary" onclick="deposit()">Deposit</button>
+            <div class="mb-3">
+                <label class="form-label">Contract Address:</label>
+                <input type="text" class="form-control" id="contractAddress" value="" readonly>
             </div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Withdraw Amount (ETH):</label>
-            <div class="input-group">
-                <input type="number" id="withdrawAmount" class="form-control" placeholder="Enter Amount">
-                <button class="btn btn-danger" onclick="withdrawEth()">Withdraw</button>
+            <div class="mb-3">
+                <label class="form-label">Your Address:</label>
+                <input type="text" class="form-control" id="yourAddress"
+                    value="0x0940BB9a9EEBF58721fCE3fC36339615B1a7A601" readonly>
             </div>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label">Transfer To Address:</label>
-            <input type="text" class="form-control" id="transferTo" placeholder="Enter Address">
-        </div>
+            <div class="mb-3">
+                <label class="form-label">Your Balance (ETH):</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="currentBalance" value="" readonly>
+                    <span class="input-group-text">ETH</span>
+                </div>
+            </div>
 
-        <div class="mb-3">
-            <label class="form-label">Transfer Amount (ETH):</label>
-            <div class="input-group">
-                <input type="number" class="form-control" id="transferAmount" placeholder="Enter Amount">
-                <button class="btn btn-primary" onclick="transferEth() ">Transfer</button>
+            <div class="mb-3">
+                <label class="form-label">Deposit Amount (ETH):</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="depositAmount" placeholder="Enter Amount">
+                    <button class="btn btn-primary" onclick="deposit()">Deposit</button>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Withdraw Amount (ETH):</label>
+                <div class="input-group">
+                    <input type="number" id="withdrawAmount" class="form-control" placeholder="Enter Amount">
+                    <button class="btn btn-danger" onclick="withdrawEth()">Withdraw</button>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Transfer To Address:</label>
+                <input type="text" class="form-control" id="transferTo" placeholder="Enter Address">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Transfer Amount (ETH):</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="transferAmount" placeholder="Enter Amount">
+                    <button class="btn btn-primary" onclick="transferEth() ">Transfer</button>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <div class="pb-5">
+            <div class="table-responsive">
+                <h5>Account Transactions</h5>
+
+                <table class="table table-bordered table-hover" id="txTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Hash</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Value (ETH)</th>
+                            <th>Block</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
